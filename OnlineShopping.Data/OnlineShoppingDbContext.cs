@@ -1,4 +1,5 @@
-﻿using OnlineShopping.Model.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using OnlineShopping.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShopping.Data
 {
-   public class OnlineShoppingDbContext :DbContext
+   public class OnlineShoppingDbContext :IdentityDbContext<ApplicationUser>
     {
         public OnlineShoppingDbContext():base("OnlineShopping")
         {
@@ -32,11 +33,17 @@ namespace OnlineShopping.Data
         public DbSet<SystemConfig> SystemConfigs { set; get; }
 
         public DbSet<Tag> Tags { set; get; }
+        public DbSet<Error> Errors { set; get; }
 
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
+        public static OnlineShoppingDbContext Create()
+        {
+            return new OnlineShoppingDbContext();
+        }
          protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId,i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
