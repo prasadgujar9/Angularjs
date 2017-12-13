@@ -5,15 +5,16 @@
         [
          'shopping.product',
          'shopping.productCategory',
-         'shopping.common'
+         'shopping.common',
         ]).config(config);
-    config.$inject = ['$stateProvider', '$urlRouterProvider'];  
-    function config($stateProvider, $urlRouterProvider) {
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+    function config($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider.state('home', {
             url: "/admin",
             templateUrl: "/app/components/home/homeView.html",
             controller: "homeController"
         });
         $urlRouterProvider.otherwise("/admin");
+        //$locationProvider.html5Mode(true);
     }
 })();

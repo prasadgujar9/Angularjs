@@ -1,6 +1,7 @@
 ﻿(function (app) {
-    app.controller('homecontroller', homeController);
-    function homeController(){
+    app.controller('homeController', homeController);
+    homeController.$inject = ['$scope'];
+    function homeController($scope) {
 
     }
 })(angular.module('shopping'))
